@@ -1,0 +1,148 @@
+@startuml
+:Main Admin: as Admin
+(Use the application) as (Use)
+
+User -> (Start)
+User --> (Use)
+
+Admin ---> (Use)
+
+note right of Admin : This is an example.
+
+note right of (Use)
+A note can also
+be on several lines
+end note
+
+note "This note is connected\nto several objects." as N2
+(Start) .. N2
+N2 .. (Use)
+@enduml
+
+@startuml
+
+component BLA {
+
+    component B
+    component C
+
+    () bla
+
+    bla2 ..# B
+    B - bla
+    C -> B
+
+}
+
+@enduml
+
+
+@startuml
+'allowmixing
+
+rectangle Payment
+
+rectangle Instrumentation
+
+component "Online Bill Payment" as OBP {
+
+    Payment -right->> [Payment Processor]
+    Instrumentation <<-up- [Payment Processor]
+
+    [Payment Processor] #-up-# [Configuration]
+
+    [Logger] -left->> Logging
+
+
+    [Payment Processor] ..right.>> Logging
+
+}
+
+@enduml
+
+
+@startuml
+'left to right direction
+
+actor Customer
+actor "Payment Processing Service" as PaymentService
+
+
+rectangle "Online Bill Pay" {
+
+    Customer - (Pay Bill)
+    (Pay Bill) - PaymentService
+
+    (Pay Bill) -- (Authenticate User) :include
+    (Pay Bill) -- (Schedule recurring payment) :extends
+
+    Customer - (Managed scheduled payment)
+
+    (Managed scheduled payment) <<- (Skip Scheduled Payment)
+    (Managed scheduled payment) <<-- (Terminate Scheduled Payment)
+}
+
+
+
+@enduml
+
+@startuml
+
+hide footbox
+
+participant WebClient
+participant AccountSvc
+participant Account
+participant Payee
+participant Schedule
+participant Processor
+
+autonumber
+
+activate WebClient
+
+WebClient -> AccountSvc: SchedulePayment()
+
+    activate AccountSvc
+
+        AccountSvc -> Account: verify()
+
+            activate Account
+
+                AccountSvc <-- Account
+
+            deactivate Account
+
+    autonumber 3.5
+
+    opt ValidAccount
+        AccountSvc -> Payee: GetDetails()
+
+            activate Payee
+
+                Payee -> Payee: GetPayments()
+
+                AccountSvc <-- Payee
+
+            deactivate Payee
+
+        opt FirstPayment
+            AccountSvc -> Processor: SendZeroValueTestPayment()
+
+                activate Processor
+                    AccountSvc <-- Processor
+                deactivate Processor
+        end
+
+        AccountSvc ->> Schedule: ScheduleFuturePayment()
+            activate Schedule
+            deactivate Schedule
+    end
+
+    autonumber 4
+
+
+     WebClient <-- AccountSvc
+
+deactivate WebClient
+@enduml

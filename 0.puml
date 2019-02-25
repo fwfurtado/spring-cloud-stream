@@ -1,0 +1,98 @@
+@startuml
+allowmixing
+
+header Page bla bla bla bla
+title bla
+footer asdf
+rectangle BLA [
+    **bla**
+    ---
+    lskdjflksadjflskdjf
+    ;
+    asdf;kldjfkjsdkf
+    sdlkfj
+]
+
+package Presenter {
+
+    class Person {
+        size()
+    }
+
+}
+
+
+package Application {
+}
+
+
+package Domain {
+}
+
+
+database database
+
+package Persistence {
+
+}
+
+
+node SO
+
+package Infrastructure {
+
+}
+
+
+
+
+Presenter .-down-> Application
+
+
+Application .-down-> Domain
+Application .-down-> Persistence
+Application .-down-> Infrastructure
+
+Persistence .-left-> Domain
+
+Persistence -down-> database
+Infrastructure -down-> SO
+
+@enduml
+
+@startuml
+
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+@endgantt
+
+@startgantt
+[Prototype design] lasts 14 days
+then [Test prototype] lasts 4 days
+then [Deploy prototype] lasts 6 days
+@endgantt
+
+@startgantt
+[Task1] lasts 10 days
+then [Task2] lasts 4 days
+-- Phase Two --
+then [Task3] lasts 5 days
+then [Task4] lasts 6 days
+@endgantt
+
+@startgantt
+[Prototype design] lasts 13 days and is colored in Lavender/LightBlue
+[Test prototype] lasts 9 days and is colored in Coral/Green and starts 3 days after [Prototype design]'s end
+[Write tests] lasts 5 days and ends at [Prototype design]'s end
+[Hire tests writers] lasts 6 days and ends at [Write tests]'s start
+[Init and write tests report] is colored in Coral/Green
+[Init and write tests report] starts 1 day before [Test prototype]'s start and ends at [Test prototype]'s end
+@endgantt
+
+@enduml
+@startuml
+colors
+@enduml
+
+

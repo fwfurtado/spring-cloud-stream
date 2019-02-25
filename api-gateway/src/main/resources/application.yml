@@ -1,0 +1,23 @@
+# reverse proxy
+zuul:
+  prefix: /api
+  routes:
+    question:
+      url: http://localhost:8081/question
+      path: /banana/**
+    user:
+      url: http://localhost:8090/
+      path: /users/**
+#  white list
+#  ignored-services: *
+
+#  ignore some uri (full path with prefix)
+#  ignore-patterns: /questions/1
+
+
+# with eureka
+#  routes:
+#    question-service:
+#      path: /questions/**
+#      serviceId: forum
+

@@ -1,0 +1,21 @@
+spring:
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+
+#  cloud:
+#    stream:
+#      bindings:
+#        input:
+#          destination: example
+
+  cloud:
+    stream:
+      bindings:
+        log-event:
+          content-type: application/json
+
+server:
+  port: 8081
